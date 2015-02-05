@@ -107,8 +107,8 @@ set the video time
 	}
 
 	function configSet(configData) {
-		if(typeof configData.config.pollServerUrl !== 'undefined'){
-			self.pollServerUrl = configData.config.pollServerUrl;
+		if(typeof configData.config.pollServerURL !== 'undefined'){
+			self.pollServerUrl = configData.config.pollServerURL;
 		}
 	}
 
@@ -306,6 +306,10 @@ set the video time
 	function getJSONItem(item) {
 		return JSON.parse(JSON.stringify(item));
 	}
+
+	self.loadConfig = function(configurations) {
+		configSet(configurations);
+	};
 
 	self.loadAnnotations = function(annotations) {
 		publishAnnotations(annotations);

@@ -7,9 +7,26 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 		var handlers;
 
-		webWorker.init = function(schema, pollServerURL) {
+		webWorker.init = function(schema, pollServerURL, webServiceURL) {
+
+			//	Modifications to load dynamic quiz ID
+			var seperatorIndex = schema.indexOf('?');
+			var extractLength = schema.length - seperatorIndex;
+			var quizId = schema.substr(seperatorIndex + 1, extractLength);
+
 			webWorker.worker = new Worker(schema);
-			webWorker.sendEvent({"config": pollServerURL});
+
+			// webWorker.sendEvent({"config": pollServerURL});
+			webWorker.sendEvent(
+				{
+					"config": 
+						{
+							"webServiceURL": webServiceURL.webServiceUrl, 
+							"pollServerURL": pollServerURL.pollServerUrl,
+							"quizID": quizId
+						} 
+				}
+			);
 
 			handlers = {
 				"annotations": [],
@@ -98,7 +115,8 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 					theme: "=vgQuestionsTheme",
 					questions: "=vgQuestionsData",
 					cuepoints: "=vgQuestionsCuepoints",
-					pollServerUrl: "=vgPollServerUrl"
+					pollServerUrl: "=vgPollServerUrl",
+					webServiceUrl: "=vgWebServiceUrl"
 				},
 				template: "",
 				link: function($scope, elem, attr, API) {
@@ -154,6 +172,7 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 					var questionDirectives = {
 						"single": "<vg-question-single></vg-question-single>",
+						"confirmation": "<vg-question-confirmation></vg-question-confirmation>",
 						"multiple": "<vg-question-multiple></vg-question-multiple>",
 						"stars": "<vg-question-stars></vg-question-stars>",
 						"text": "<vg-question-text></vg-question-text>",
@@ -172,9 +191,13 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 						shownAnnotations = {};
 
 						console.log("sending poll server url "+ $scope.pollServerUrl);
-						webWorker.init($scope.questions, {
-							"pollServerUrl": $scope.pollServerUrl
-						});
+						console.log("get ws url "+ $scope.webServiceUrl);
+
+						webWorker.init($scope.questions, 
+										{"pollServerUrl": $scope.pollServerUrl},
+										{"webServiceUrl": $scope.webServiceUrl}
+						);
+
 						webWorker.addAnnotationsListUpdateCallback(
 							function(data){
 								console.log("I just got some new times to stop at");
@@ -351,6 +374,33 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 				$scope.onSubmitDisabled = function(event){
 					return !$scope.questionData.chosen;
+				};
+
+				$scope.init();
+			},
+		};
+	})
+	.directive("vgQuestionConfirmation", function() {
+		return {
+			restrict: "E",
+			templateUrl: 'bower_components/videogular-questions/question-confirmation.html',
+			link: function($scope, elem, attr) {
+
+				$scope.init = function() {
+				};
+
+				$scope.onSubmitClick = function(event){
+					$scope.$emit('submitted', {
+						result: $scope.questionData.chosen
+					});
+				};
+
+				$scope.onSkipClick = function(event){
+					$scope.$emit('skipped');
+				};
+
+				$scope.onSubmitDisabled = function(event){
+					return false;
 				};
 
 				$scope.init();
