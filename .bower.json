@@ -1,0 +1,34 @@
+{
+  "name": "videogular-questions",
+  "version": "0.4.0",
+  "authors": [
+    "Samuel Bennett <sb21g11@soton.ac.uk>"
+  ],
+  "description": "A quiz and poll overlay for Videogular",
+  "main": "questions.js",
+  "keywords": [
+    "videogular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-charts": "latest",
+    "jjv": "latest"
+  },
+  "homepage": "https://github.com/soton-ecs-2014-gdp-12/videogular-questions",
+  "_release": "0.4.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.0",
+    "commit": "7d93133f6b60646d42e5de1ce0b16dac02b44fb8"
+  },
+  "_source": "git://github.com/soton-ecs-2014-gdp-12/videogular-questions.git",
+  "_target": "~0.4.0",
+  "_originalSource": "videogular-questions"
+}
