@@ -1,6 +1,7 @@
 /* jshint browser: true, devel: true */
 (function(){
 "use strict";
+var quizId;
 angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts'])
 	.factory("webWorkerFactory", function () {
 		var webWorker = {};
@@ -12,7 +13,7 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 			//	Modifications to load dynamic quiz ID
 			var seperatorIndex = schema.indexOf('?');
 			var extractLength = schema.length - seperatorIndex;
-			var quizId = schema.substr(seperatorIndex + 1, extractLength);
+			quizId = schema.substr(seperatorIndex + 1, extractLength);
 
 			webWorker.worker = new Worker(schema);
 
@@ -363,8 +364,24 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 				};
 
 				$scope.onSubmitClick = function(event){
+
+					var options = $scope.questionData.options;
+					var result = [];
+					var optionId;
+
+					options.forEach(function(option) {
+						if (option.name === $scope.questionData.chosen) {
+							optionId = option.optionid;
+						}
+					});
+
 					$scope.$emit('submitted', {
-						result: $scope.questionData.chosen
+						result: 
+						{
+							"quizid"		: quizId,
+							"optionid"		: optionId, 
+							"optiontext"	: $scope.questionData.chosen
+						}
 					});
 				};
 

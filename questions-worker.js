@@ -87,9 +87,17 @@ set the video time
 
 	function submitPollResult(response, annotationId, questionId) {
 		var xhr = new XMLHttpRequest();
-		var toSend = JSON.stringify({questionResult:questionId, annotation:annotationId, result:response});
-		xhr.open("POST",self.pollServerUrl + "vote" ,true);
+		var questionResponse = 
+		{
+			quizId		:response.quizid,
+			questionId	:questionId,
+			optionId	:response.optionid,
+			optionText	:response.optiontext
+		};
+		var toSend = JSON.stringify(questionResponse);
+		xhr.open("POST",self.pollServerUrl, true);
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		console.log(toSend);
 		xhr.send(toSend);
 	}
 
