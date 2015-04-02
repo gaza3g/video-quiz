@@ -87,12 +87,22 @@ set the video time
 
 	function submitPollResult(response, annotationId, questionId) {
 		var xhr = new XMLHttpRequest();
+		// var questionResponse = 
+		// {
+		// 	quizId		:response.quizid,
+		// 	questionId	:questionId,
+		// 	optionId	:response.optionid,
+		// 	optionText	:response.optiontext
+		// };
 		var questionResponse = 
 		{
-			quizId		:response.quizid,
-			questionId	:questionId,
-			optionId	:response.optionid,
-			optionText	:response.optiontext
+			quizID		:'1791',
+			quesID		:'4421',
+			selVal		:'2',
+			optionID	:'14852',
+			qType		:'MCQ',
+			puid		:'D8254C10-DD6F-45E6-A3AF-2E0F3630CC6F',
+			attempt		:'1'
 		};
 		var toSend = JSON.stringify(questionResponse);
 		xhr.open("POST",self.pollServerUrl, true);
