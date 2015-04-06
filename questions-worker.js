@@ -94,16 +94,18 @@ set the video time
 		// 	optionId	:response.optionid,
 		// 	optionText	:response.optiontext
 		// };
+
 		var questionResponse = 
 		{
-			quizID		:'1791',
-			quesID		:'4421',
-			selVal		:'2',
-			optionID	:'14852',
+			quizID		:'951',
+			quesID		:'3539',
+			selVal		:'1',
+			optionID	:'9790',
 			qType		:'MCQ',
-			puid		:'D8254C10-DD6F-45E6-A3AF-2E0F3630CC6F',
+			puid		:'3B77A2C2-9CA1-46B4-88A8-D2131E7E1686',
 			attempt		:'1'
 		};
+
 		var toSend = JSON.stringify(questionResponse);
 		xhr.open("POST",self.pollServerUrl, true);
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
