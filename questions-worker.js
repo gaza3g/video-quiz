@@ -97,10 +97,10 @@ set the video time
 
 		var questionResponse = 
 		{
-			quizID		:'953',
-			quesID		:'3544',
+			quizID		:response.quizid,
+			quesID		:questionId,
 			selVal		:'1',
-			optionID	:'9810',
+			optionID	:response.optionid,
 			qType		:'MCQ',
 			puid		:'2AB3B11E-F591-4566-8F2B-13ED2CCD1A8B',
 			attempt		:'1'
