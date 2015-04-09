@@ -99,7 +99,7 @@ set the video time
 		{
 			quizID		:response.quizid,
 			quesID		:questionId,
-			selVal		:'1',
+			selVal		:response.selval,
 			optionID	:response.optionid,
 			qType		:'MCQ',
 			puid		:'2AB3B11E-F591-4566-8F2B-13ED2CCD1A8B',

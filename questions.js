@@ -368,10 +368,12 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 					var options = $scope.questionData.options;
 					var result = [];
 					var optionId;
+					var selVal;
 
 					options.forEach(function(option) {
 						if (option.name === $scope.questionData.chosen) {
 							optionId = option.optionid;
+							selVal = option.order;
 						}
 					});
 
@@ -380,7 +382,8 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 						{
 							"quizid"		: quizId,
 							"optionid"		: optionId, 
-							"optiontext"	: $scope.questionData.chosen
+							"optiontext"	: $scope.questionData.chosen,
+							"selval"		: selVal
 						}
 					});
 				};
