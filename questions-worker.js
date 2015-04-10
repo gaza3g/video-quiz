@@ -95,7 +95,7 @@ set the video time
 			selVal		:response.selval,
 			optionID	:response.optionid,
 			qType		:'MCQ',
-			puid		:puid,
+			puid		:self.puid,
 			attempt		:'1'
 		};
 
