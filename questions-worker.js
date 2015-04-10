@@ -87,13 +87,6 @@ set the video time
 
 	function submitPollResult(response, annotationId, questionId) {
 		var xhr = new XMLHttpRequest();
-		// var questionResponse = 
-		// {
-		// 	quizId		:response.quizid,
-		// 	questionId	:questionId,
-		// 	optionId	:response.optionid,
-		// 	optionText	:response.optiontext
-		// };
 
 		var questionResponse = 
 		{
@@ -102,7 +95,7 @@ set the video time
 			selVal		:response.selval,
 			optionID	:response.optionid,
 			qType		:'MCQ',
-			puid		:'2AB3B11E-F591-4566-8F2B-13ED2CCD1A8B',
+			puid		:puid,
 			attempt		:'1'
 		};
 
@@ -129,6 +122,9 @@ set the video time
 	function configSet(configData) {
 		if(typeof configData.config.pollServerURL !== 'undefined'){
 			self.pollServerUrl = configData.config.pollServerURL;
+		}
+		if(typeof configData.config.puid !== 'undefined'){
+			self.puid = configData.config.puid.puid;
 		}
 	}
 

@@ -8,7 +8,7 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 		var handlers;
 
-		webWorker.init = function(schema, pollServerURL, webServiceURL) {
+		webWorker.init = function(schema, pollServerURL, webServiceURL, puid) {
 
 			//	Modifications to load dynamic quiz ID
 			var seperatorIndex = schema.indexOf('?');
@@ -17,14 +17,14 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 			webWorker.worker = new Worker(schema);
 
-			// webWorker.sendEvent({"config": pollServerURL});
 			webWorker.sendEvent(
 				{
 					"config": 
 						{
 							"webServiceURL": webServiceURL.webServiceUrl, 
 							"pollServerURL": pollServerURL.pollServerUrl,
-							"quizID": quizId
+							"quizID": quizId,
+							"puid": puid
 						} 
 				}
 			);
@@ -117,7 +117,8 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 					questions: "=vgQuestionsData",
 					cuepoints: "=vgQuestionsCuepoints",
 					pollServerUrl: "=vgPollServerUrl",
-					webServiceUrl: "=vgWebServiceUrl"
+					webServiceUrl: "=vgWebServiceUrl",
+					puid: "=vgPuid",
 				},
 				template: "",
 				link: function($scope, elem, attr, API) {
@@ -196,7 +197,8 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 						webWorker.init($scope.questions, 
 										{"pollServerUrl": $scope.pollServerUrl},
-										{"webServiceUrl": $scope.webServiceUrl}
+										{"webServiceUrl": $scope.webServiceUrl},
+										{"puid": $scope.puid}
 						);
 
 						webWorker.addAnnotationsListUpdateCallback(
