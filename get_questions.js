@@ -6,8 +6,9 @@ importScripts("questions-worker.js");
 onmessage = function(e) {
 
  	var quizId = e.data.config.quizID;
+ 	var puid = e.data.config.puid.puid;
  	var webServiceUrl = e.data.config.webServiceURL;
- 	var url = webServiceUrl + quizId;
+ 	var url = webServiceUrl + quizId + "/" + puid;
 
  	loadConfig(e.data);
 

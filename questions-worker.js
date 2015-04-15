@@ -90,13 +90,13 @@ set the video time
 
 		var questionResponse = 
 		{
-			quizID		:response.quizid,
-			quesID		:questionId,
-			selVal		:response.selval,
-			optionID	:response.optionid,
-			qType		:'MCQ',
-			puid		:self.puid,
-			attempt		:'1'
+			quizID			:response.quizid,
+			quesID			:questionId,
+			selVal			:response.selval,
+			optionID		:response.optionid,
+			qType			:'MCQ',
+			puid			:self.puid,
+			currentAttempt	:response.currentattempt
 		};
 
 		var toSend = JSON.stringify(questionResponse);

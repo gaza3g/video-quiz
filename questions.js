@@ -385,7 +385,8 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 							"quizid"		: quizId,
 							"optionid"		: optionId, 
 							"optiontext"	: $scope.questionData.chosen,
-							"selval"		: selVal
+							"selval"		: selVal,
+							"currentattempt": JSON.stringify($scope.questionData.currentAttempt)
 						}
 					});
 				};
