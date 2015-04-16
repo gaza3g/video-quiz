@@ -96,7 +96,7 @@ set the video time
 			optionID		:response.optionid,
 			qType			:'MCQ',
 			puid			:self.puid,
-			currentAttempt	:response.currentattempt
+			attempt			:response.currentattempt
 		};
 
 		var toSend = JSON.stringify(questionResponse);
