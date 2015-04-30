@@ -102,8 +102,6 @@ set the video time
 		};
 
 		var toSend = JSON.stringify(questionResponse);
-		xhr.open("POST",self.pollServerUrl, true);
-		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
 		var key = CryptoJS.enc.Utf8.parse('BAC125E78EA24856');
 		var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(toSend), key,
@@ -114,8 +112,10 @@ set the video time
 	        padding: CryptoJS.pad.Pkcs7
 	    });
 
+		var sendUrl = self.pollServerUrl + "?q=" + encrypted;
+		xhr.open("GET", sendUrl, true);
 		console.log(encrypted.toString());
-		xhr.send(encrypted.toString());
+		xhr.send();
 	}
 
 	function getPollResults(annotationId, questionId, callback) {
