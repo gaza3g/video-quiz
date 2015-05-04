@@ -8,7 +8,7 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 		var handlers;
 
-		webWorker.init = function(schema, pollServerURL, webServiceURL, puid) {
+		webWorker.init = function(schema, pollServerURL, webServiceURL, puid, hashtoken) {
 
 			//	Modifications to load dynamic quiz ID
 			var seperatorIndex = schema.indexOf('?');
@@ -24,7 +24,8 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 							"webServiceURL": webServiceURL.webServiceUrl, 
 							"pollServerURL": pollServerURL.pollServerUrl,
 							"quizID": quizId,
-							"puid": puid
+							"puid": puid,
+							"hashtoken": hashtoken
 						} 
 				}
 			);
@@ -119,6 +120,7 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 					pollServerUrl: "=vgPollServerUrl",
 					webServiceUrl: "=vgWebServiceUrl",
 					puid: "=vgPuid",
+					hashtoken: "=vgHashtoken",
 				},
 				template: "",
 				link: function($scope, elem, attr, API) {
@@ -198,7 +200,8 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 						webWorker.init($scope.questions, 
 										{"pollServerUrl": $scope.pollServerUrl},
 										{"webServiceUrl": $scope.webServiceUrl},
-										{"puid": $scope.puid}
+										{"puid": $scope.puid},
+										{"hashtoken": $scope.hashtoken}
 						);
 
 						webWorker.addAnnotationsListUpdateCallback(

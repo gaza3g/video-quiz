@@ -98,7 +98,7 @@ set the video time
 			optionID		:response.optionid,
 			qType			:'MCQ',
 			puid			:self.puid,
-			attempt			:response.currentattempt
+			attempt			:response.currentattempt,
 		};
 
 		var toSend = JSON.stringify(questionResponse);
@@ -112,7 +112,7 @@ set the video time
 	        padding: CryptoJS.pad.Pkcs7
 	    });
 
-		var sendUrl = self.pollServerUrl + "?q=" + encrypted;
+		var sendUrl = self.pollServerUrl + "?h=" + self.hashtoken + "&q=" + encrypted;
 		xhr.open("GET", sendUrl, true);
 		console.log(encrypted.toString());
 		xhr.send();
@@ -137,6 +137,9 @@ set the video time
 		}
 		if(typeof configData.config.puid !== 'undefined'){
 			self.puid = configData.config.puid.puid;
+		}
+		if(typeof configData.config.hashtoken !== 'undefined'){
+			self.hashtoken = configData.config.hashtoken.hashtoken;
 		}
 	}
 
