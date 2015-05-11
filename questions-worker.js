@@ -101,27 +101,27 @@ set the video time
 			attempt			:response.currentattempt,
 		};
 
-		// var toSend = JSON.stringify(questionResponse);
-
-		// var key = CryptoJS.enc.Utf8.parse('BAC125E78EA24856');
-		// var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(toSend), key,
-	 //    {
-	 //        keySize: 128 / 8,
-	 //        iv: key,
-	 //        mode: CryptoJS.mode.CBC,
-	 //        padding: CryptoJS.pad.Pkcs7
-	 //    });
-
-		// var sendUrl = self.pollServerUrl + "?h=" + self.hashtoken + "&q=" + encrypted;
-		// xhr.open("GET", sendUrl, true);
-		// console.log(encrypted.toString());
-		// xhr.send();
-
 		var toSend = JSON.stringify(questionResponse);
- 		xhr.open("POST",self.pollServerUrl, true);
- 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		console.log(toSend);
-		xhr.send(toSend);
+
+		var key = CryptoJS.enc.Utf8.parse('BAC125E78EA24856');
+		var encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(toSend), key,
+	    {
+	        keySize: 128 / 8,
+	        iv: key,
+	        mode: CryptoJS.mode.CBC,
+	        padding: CryptoJS.pad.Pkcs7
+	    });
+
+		var sendUrl = self.pollServerUrl + "?h=" + self.hashtoken + "&q=" + encrypted;
+		xhr.open("GET", sendUrl, true);
+		console.log(encrypted.toString());
+		xhr.send();
+
+		// var toSend = JSON.stringify(questionResponse);
+ 	// 	xhr.open("POST",self.pollServerUrl, true);
+ 	// 	xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		// console.log(toSend);
+		// xhr.send(toSend);
 	}
 
 	function getPollResults(annotationId, questionId, callback) {
