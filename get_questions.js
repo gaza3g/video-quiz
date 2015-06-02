@@ -9,29 +9,13 @@ onmessage = function(e) {
  	var puid = e.data.config.puid.puid;
  	var webServiceUrl = e.data.config.webServiceURL;
  	var url = webServiceUrl + quizId + "/" + puid;
+  var quizquestions = e.data.config.quizquestions;
 
  	loadConfig(e.data);
 
- 	if(quizId)
- 	{
-		getQuizQuestions(url, function(results) {
-
-			loadAnnotations(results);
-
-		});
- 	}
+  loadAnnotations(quizquestions);
 }
 
-function getQuizQuestions(url, callback) {
-	var xhr = new XMLHttpRequest();
-
-	xhr.onload = function() {
-		callback(JSON.parse(this.responseText));
-	}
-	xhr.open("GET", url, true)
-	xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	xhr.send();
-}
 
 
 

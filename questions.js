@@ -1,9 +1,13 @@
 /* jshint browser: true, devel: true */
 (function(){
 "use strict";
+
 var quizId;
+var quizquestions;
+
 angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts'])
-	.factory("webWorkerFactory", function () {
+	.factory("webWorkerFactory", function ($http) {
+
 		var webWorker = {};
 
 		var handlers;
@@ -17,18 +21,35 @@ angular.module("uk.ac.soton.ecs.videogular.plugins.questions", ['angularCharts']
 
 			webWorker.worker = new Worker(schema);
 
-			webWorker.sendEvent(
-				{
-					"config": 
-						{
-							"webServiceURL": webServiceURL.webServiceUrl, 
-							"pollServerURL": pollServerURL.pollServerUrl,
-							"quizID": quizId,
-							"puid": puid,
-							"hashtoken": hashtoken
-						} 
-				}
-			);
+			var reqUrl = webServiceURL.webServiceUrl + quizId + '/' + puid.puid;
+
+			/*
+				Any attempt to retrieve the questions list inside get_questions or 
+				questions-worker will result in Firefox throwing a CORS error. This
+				does not occur in other browsers.
+			*/
+			$http({method: 'GET', url: reqUrl}).success(function(data, status, headers, config) {
+				quizquestions = data;
+
+				/*
+					Once we get the questions list, then we send the config event to the web-worker
+					so that 'quizquestoins' will be made available to it without doing the ajax
+					call there.
+				*/
+				webWorker.sendEvent(
+					{
+						"config": 
+							{
+								"webServiceURL": webServiceURL.webServiceUrl, 
+								"pollServerURL": pollServerURL.pollServerUrl,
+								"quizID": quizId,
+								"puid": puid,
+								"hashtoken": hashtoken,
+								"quizquestions": quizquestions
+							} 
+					}
+				);
+			}).error(function(data, status, headers, config) {});
 
 			handlers = {
 				"annotations": [],
